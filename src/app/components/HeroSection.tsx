@@ -1,32 +1,37 @@
 "use client";
 import React, { useState } from "react";
 import { Task } from "../models/taskModel";
-import useTaskStore from "../store/tasksStore";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/app/store/appStore";
+import { addNewTask } from "../store/features/todo/taskSlice";
 
 export default function HeroSection() {
 	const [inputValue, setInputValue] = useState("");
 
-	//Zustand
-	const { addTask, tasks } = useTaskStore();
+	// Redux Toolkit
+	const dispatch = useDispatch();
+	const { tasks: reduxTasks } = useSelector(
+		(state: RootState) => state.tasksStore
+	);
 
-	console.log("Task List", tasks);
+	console.log("Task List 11", reduxTasks);
 
 	const addTaskToList = (userInputValue: string) => {
-		// Zustand
-
-		let checkIfExists2 = tasks?.find((task) => task.name === userInputValue);
+		let checkIfExists2 = reduxTasks?.find(
+			(task) => task.name === userInputValue
+		);
 
 		if (checkIfExists2) {
 			alert("Task Already Exists !");
 		} else {
 			// Create a new task object
 			const newTask: Task = {
-				id: tasks.length + 1, // id should be based on the current list length
+				id: reduxTasks.length + 1, // id should be based on the current list length
 				name: userInputValue,
 				description: userInputValue,
 				status: "pending",
 			};
-			addTask(newTask);
+			dispatch(addNewTask(newTask));
 		}
 
 		// Clear the input field

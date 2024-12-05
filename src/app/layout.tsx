@@ -1,5 +1,6 @@
 import "./globals.css";
 import { DataContextProvider } from "./context/DataContext";
+import StoreProvider from "./StoreProvider";
 
 export default function RootLayout({
 	children,
@@ -9,7 +10,9 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`antialiased `}>
-				<DataContextProvider>{children}</DataContextProvider>
+				<StoreProvider>
+					<DataContextProvider>{children}</DataContextProvider>
+				</StoreProvider>
 			</body>
 		</html>
 	);

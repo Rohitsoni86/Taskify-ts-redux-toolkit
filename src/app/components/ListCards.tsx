@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import { MdModeEdit, MdDelete, MdCheckCircle } from "react-icons/md";
 import { IoRefreshCircleSharp } from "react-icons/io5";
 import { BsFillPatchCheckFill } from "react-icons/bs";
-import useTaskStore from "../store/tasksStore";
+import { useDispatch } from "react-redux";
+import {
+	changeTaskStatus,
+	deleteTask,
+	updateTask,
+} from "../store/features/todo/taskSlice";
 
 export default function ListCards({
 	idF,
@@ -17,35 +22,45 @@ export default function ListCards({
 }) {
 	const [isEditable, setIsEditable] = useState(false);
 	const [editText, setEditText] = useState("");
-	// Zustand
-
-	const { tasks, removeTask, updateTaskStatus, editTask } = useTaskStore();
+	//Redux Toolkit
+	// const tasksList = useSelector((state: RootState) => state.tasksStore.tasks);
+	const dispatch = useDispatch();
 
 	const handleCompleteTask = (taskId: number, taskIndex: number) => {
-		// Zustand
-		updateTaskStatus(taskId, "completed");
+		// Redux State
+		dispatch(
+			changeTaskStatus({
+				id: taskId,
+				status: "completed",
+			})
+		);
 	};
 
 	const handleReOpenTask = (taskId: number, taskIndex: number) => {
-		// Zustand
-		updateTaskStatus(taskId, "pending");
+		// Redux Toolkit
+		dispatch(
+			changeTaskStatus({
+				id: taskId,
+				status: "pending",
+			})
+		);
 	};
 
 	const handleEditTask = (taskId: number, taskIndex: number) => {
-		// Zustand
-
-		// let checkIfExists2 = tasks?.find((task, index) => task.name === editText);
-
-		// if (checkIfExists2) {
-		// 	alert("Task Already Exists !");
-		// }
-		editTask(taskId, editText);
+		dispatch(
+			updateTask({
+				id: taskId,
+				description: editText,
+			})
+		);
 		setIsEditable(false);
 		setEditText("");
 	};
 
 	const handleDeleteTask = (taskId: number) => {
-		removeTask(taskId);
+		// Redux Toolkit
+		console.log("Removing Task", taskId);
+		dispatch(deleteTask(taskId));
 	};
 
 	return (

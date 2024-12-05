@@ -2,21 +2,21 @@
 
 import React from "react";
 import ListCards from "./ListCards";
-import useTaskStore from "../store/tasksStore";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/appStore";
 
 export default function TasksList() {
-	// Zustand
-
-	const { tasks } = useTaskStore();
+	//Redux Toolkit
+	const tasksList = useSelector((state: RootState) => state.tasksStore.tasks);
 	return (
 		<>
 			<div
 				className="flex justify-center md:justify-around gap-4 px-8 py-4  flex-wrap h-full bg-cyan-400"
 				style={{ minHeight: "calc(100vh - 210px)" }}
 			>
-				{tasks?.length > 0 ? (
+				{tasksList?.length > 0 ? (
 					<>
-						{tasks?.map((task, index) => {
+						{tasksList?.map((task, index) => {
 							return (
 								<ListCards
 									idF={task.id}
