@@ -77,7 +77,7 @@ export default function ListCards({
 							}}
 						/>
 					) : (
-						<p className="text-justify p-2 break-words text-white">
+						<p className="text-justify p-2 break-words text-xl font-semibold text-cyan-400">
 							{description || ""}
 						</p>
 					)}
