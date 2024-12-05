@@ -38,8 +38,8 @@ export default function TasksList() {
 
 	return (
 		<>
-			<div className="bg-cyan-400 flex justify-end text-right p-2">
-				<div className=" max-w-sm w-[200px] rounded-lg">
+			<div className="bg-cyan-400 flex justify-end text-right p-4 md:p-2">
+				<div className="w-full md:w-[300px] rounded-lg">
 					<div className="relative">
 						<select
 							onChange={(event) => {
@@ -66,8 +66,8 @@ export default function TasksList() {
 							className="h-5 w-5 ml-1 absolute top-2.5 right-2.5 text-slate-700"
 						>
 							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
+								strokeLinecap="round"
+								strokeLinejoin="round"
 								d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
 							/>
 						</svg>
